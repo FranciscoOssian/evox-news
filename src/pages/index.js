@@ -12,7 +12,6 @@ export default function Home({response}) {
 
   const [articles, setArticles] = useState(response);
 
-
   async function reloadNews(event){
     //const resp  = await getEverything({ q: event.target.value });
     //n testei se esse targei funciona
@@ -22,6 +21,7 @@ export default function Home({response}) {
     //console.log(resp);
 
     //setArticles(resp);
+    setArticles(undefined)
   }
 
 
@@ -88,7 +88,6 @@ export async function getServerSideProps(context) {
   const response = await getEverything({
       q: search
   });
-  console.log(context.params);
   return {
     props: {
         response,

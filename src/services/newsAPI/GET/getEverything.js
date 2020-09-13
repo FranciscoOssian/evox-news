@@ -12,8 +12,6 @@ const getEverything = async (query) => {
 
     const url = `${baseUrl}/everything?${queryFinal}&apiKey=${process.env.API_TOKEN}`;
 
-    console.log(url)
-
     let response;
 
     try{
