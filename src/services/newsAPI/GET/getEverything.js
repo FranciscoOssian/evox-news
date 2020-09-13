@@ -1,4 +1,4 @@
-import { baseUrl, siteKey } from '../configs.json';
+import { baseUrl } from '../configs.json';
 import axios from 'axios'
 
 import filterUndefined from '../../../utils/filterUndefined';
