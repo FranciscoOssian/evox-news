@@ -15,17 +15,8 @@ export default function Home({response}) {
   async function reloadNews({ target }){
     const textToSearch = target.value;
     let i;
-
     
-
-    const config = {
-      headers:{
-        contentType: "application/json",
-        'Access-Control-Allow-Origin': "https://localhost:3000"
-      }
-    }
-    
-    const data = await axios.get('http://localhost:3000/api/news', {
+    const data = await axios.get('https://evox-news.vercel.app/api/news', {
       end_point: "everything",
       querys:{
         q:"bitcoin"
