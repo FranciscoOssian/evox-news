@@ -12,6 +12,7 @@ export default function Home({response}) {
   const [textSearch, setTextSearch] = useState(' ');
 
   async function reloadNews({ target }){
+    
     setTextSearch( target.value );
     
     const response = await axios.post('http://localhost:3000/api/news', {
