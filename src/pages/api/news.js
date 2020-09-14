@@ -21,20 +21,21 @@ function runMiddleware(req, res, fn) {
 }
 
 export default async (req, res) => {
+  const { end_point, querys } = req.body.params;
 
   await runMiddleware(req, res, cors)
 
   try{
 
-    const { end_point, querys } = req.body;
-
-    const articles = await getNews("everything", { q:"bitcoin" });
+    const articles = await getNews( end_point, querys );
 
     res.status(200).send( articles );
 
   }catch(err){
 
-    res.send({error:"error in api /news"});
+    console.log(err);
+
+    res.send([]);
     
   }
   
