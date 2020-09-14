@@ -5,27 +5,25 @@ import axios from 'axios';
 import getEverything from '../services/newsAPI/GET/getEverything';
 import PageHead from '../components/PageHead';
 import styles from '../styles/Home.module.css';
-import useSwr from 'swr';
 
 export default function Home({response}) {
 
   const [articles, setArticles] = useState(response);
-  const [textSearch, setTextSearch] = useState('');
+  const [textSearch, setTextSearch] = useState(' ');
 
   async function reloadNews({ target }){
-    const textToSearch = target.value;
-    let i;
+    setTextSearch( target.value );
     
-    const data = await axios.get('https://evox-news.vercel.app/api/news', {
-      end_point: "everything",
-      querys:{
-        q:"bitcoin"
+    const response = await axios.post('http://localhost:3000/api/news', {
+      params: {
+        end_point:"everything",
+        querys:{
+          q:target.value
+        }
       }
     })
 
-    console.log("articles -> ", data);
-
-    setArticles( data.data )
+    setArticles( response.data );
 
   }
 
@@ -60,8 +58,8 @@ export default function Home({response}) {
             >
               <div className={styles.card}>
                 <img src={article.urlToImage} alt=""></img>
-                <h3>{article.title.substring(0, 50)}</h3>
-                <p>{article.description.substring(0, 100)}</p>
+                <h3>{article.title === null ? '' : article.title.substring(0, 100) }</h3>
+                <p>{article.description === null ? '' : article.description.substring(0, 50)}</p>
               </div>
             </Link>
           ) )}

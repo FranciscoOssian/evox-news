@@ -22,7 +22,7 @@ function runMiddleware(req, res, fn) {
 
 export default async (req, res) => {
 
-  await runMiddleware(req, res, cors)
+  await runMiddleware(req, res, cors);
 
   try{
 
