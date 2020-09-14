@@ -21,7 +21,9 @@ const getNews = async (endPoint, query) => {
         return response = [];
     }
 
-    return response.data.articles
+    console.log(response.data.articles)
+
+    return response.data.articles;
 }
 
 export default getNews;

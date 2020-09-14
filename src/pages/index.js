@@ -1,31 +1,42 @@
 import React, {useState} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-
+import axios from 'axios';
 import getEverything from '../services/newsAPI/GET/getEverything';
-
 import PageHead from '../components/PageHead';
-
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.css';
+import useSwr from 'swr';
 
 export default function Home({response}) {
 
   const [articles, setArticles] = useState(response);
+  const [textSearch, setTextSearch] = useState('');
 
-  async function reloadNews(event){
-    //const resp  = await getEverything({ q: event.target.value });
-    //n testei se esse targei funciona
+  async function reloadNews({ target }){
+    const textToSearch = target.value;
+    let i;
 
-    //getServerSideProps()
+    
 
-    //console.log(resp);
+    const config = {
+      headers:{
+        contentType: "application/json",
+        'Access-Control-Allow-Origin': "https://localhost:3000"
+      }
+    }
+    
+    const data = await axios.get('http://localhost:3000/api/news', {
+      end_point: "everything",
+      querys:{
+        q:"bitcoin"
+      }
+    })
 
-    //setArticles(resp);
-    setArticles(undefined)
+    console.log("articles -> ", data);
+
+    setArticles( data.data )
+
   }
-
-
-
 
   return (
     <div className={styles.container}>
@@ -36,29 +47,23 @@ export default function Home({response}) {
       </Head>
 
       <main className={styles.main}>
-
         <PageHead/>
-
         <h1 className={styles.title}>
           Evox News
         </h1>
-
         <p className={styles.description}>
           Your news site
         </p>
-
         <div>
           🔍
           <input
-            onChange={()=>reloadNews()}
+            onChange={(e)=>reloadNews(e)}
             placeholder="search news"
+            value={textSearch}
           />
         </div>
-
         <div className={styles.grid}>
-
           {articles.map( article => (
-
             <Link href="/new"
               id={article.url}
             >
@@ -68,17 +73,13 @@ export default function Home({response}) {
                 <p>{article.description.substring(0, 100)}</p>
               </div>
             </Link>
-
-            
-
           ) )}
         </div>
-        
       </main>
 
       <footer className={styles.footer}>
-        
       </footer>
+    
     </div>
   )
 }
