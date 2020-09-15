@@ -13,7 +13,7 @@ export default function Home({response}) {
 
   async function reloadNews({ target }){
     setTextSearch( target.value );
-    const response = await axios.post("https://evox-news.vercel.app/api/news", {
+    const response = await axios.post("http://evox-news.vercel.app/api/news", {
       params: {
         end_point:"everything",
         querys:{
