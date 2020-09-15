@@ -23,12 +23,14 @@ function runMiddleware(req, res, fn) {
 export default async (req, res) => {
   const { end_point, querys } = req.body.params;
 
-  await runMiddleware(req, res, cors)
+  await runMiddleware(req, res, cors);
 
   try{
 
     const articles = await getNews( end_point, querys );
 
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).send( articles );
 
   }catch(err){
