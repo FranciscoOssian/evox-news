@@ -36,10 +36,13 @@
 }
 
 .grid {
+  transition: 0.7s;
+  flex-direction: column-reverse;
   margin: 25%;
   margin-top: 0%;
 }
 .card img{
+  transition: 0.7s;
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
   width: 100%;
@@ -54,10 +57,11 @@
 
 .card img:not(hover){
   border-bottom-left-radius: 10%;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 .card {
+  transition: 0.7s;
   margin-bottom: 15%;
   border-color: black;
   border-width: 100%;
@@ -67,12 +71,15 @@
 }
 
 .card_text{
+  transition: 0.7s;
   padding: 2%;
 }
 .card_text h3{
+  transition: 0.7s;
   font-size: 0.9cm;
 }
 .card p{
+  transition: 0.7s;
   font-size: 0.6cm;
 }
 
@@ -80,7 +87,7 @@
 .card:focus,
 .card:active {
   box-shadow: 0 50px 50px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
+  transition: 0.7s;
 }
 
 .card h3 {
@@ -101,56 +108,85 @@
   padding: 10px;
   text-align: center;
   font-size: 1cm;
+  transition: 0.7s;
 }
 
 
 .text_search {
+  transition: 0.7s;
   width: 50%;
   border-color: black;
   font-size: 0.7cm;
 }
 
 .Evox h1{
+  transition: 0.7s;
   margin-bottom: 0cm;
   padding-bottom: 0cm;
 }
 
 .Evox p{
+  transition: 0.7s;
   margin-top: 0cm;
   padding-top: 0cm;
 }
 
 #search{
+  transition: 0.7s;
   padding: 10px;
   text-align: center;
 }
 
 
-@media only screen and (max-width: 600px) {
-  .grid{
-    margin: 0%;
-  }
+
+
+@media only screen and (max-width: 1000px) {
   .card_text h3{
+    transition: 0.7s;
     font-size: .5cm;
   }
   .card p{
+    transition: 0.7s;
+    font-size: 95%;
+  }
+  .grid {
+    transition: 0.7s;
+    margin: 15%;
+    margin-top: 0%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .grid{
+    transition: 0.7s;
+    margin: 0%;
+  }
+  .card_text h3{
+    transition: 0.7s;
+    font-size: .5cm;
+  }
+  .card p{
+    transition: 0.7s;
     font-size: 100%;
   }
 
   .card:hover,
   .card:focus,
   .card:active {
+    transition: 0.3s;
     box-shadow: 0 10px 10px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
   }
 
   .text_search {
+    transition: 0.7s;
     width: 100%;
     border-color: black;
     font-size: 0.7cm;
   }
 
   .Evox{
+    transition: 0.7s;
     font-size: 0.5cm;
   }
 

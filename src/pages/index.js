@@ -2,22 +2,31 @@ import React, {useState} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import axios from 'axios';
-import getEverything from '../services/newsAPI/GET/getEverything';
 import PageHead from '../components/PageHead';
 import styles from '../styles/Home.module.css';
+import filterUndefined from '../utils/filterUndefined';
+import yyyy_mm_dd from '../utils/current_yyyy_mm_dd';
 
-export default function Home({response}) {
+export default function Home( { everything } ) {
 
-  const [articles, setArticles] = useState(response);
+  const now = yyyy_mm_dd();
+
+  const [articles, setArticles] = useState(everything);
   const [textSearch, setTextSearch] = useState('');
 
-  async function reloadNews({ target }){
+  const [everyThingPage, setEveryThingPage] = useState(1);
+
+  async function reloadNewsEverything({target}, page){
     setTextSearch( target.value );
-    const response = await axios.post("http://evox-news.vercel.app/api/news", {
+    if(target.value === '') return;
+    const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '')
+    const response = await axios.post(url, {
       params: {
-        end_point:"everything",
         querys:{
-          q:target.value
+          q:target.value,
+          page: page,
+          to:now,
+          from:now,
         }
       }
     })
@@ -48,7 +57,7 @@ export default function Home({response}) {
         <div id={styles.search} >
           <input
             className={styles.text_search}
-            onChange={(e)=>reloadNews(e)}
+            onChange={(e)=>reloadNewsEverything(e, everyThingPage)}
             placeholder="search news"
             value={textSearch}
           />
@@ -80,15 +89,25 @@ export default function Home({response}) {
 }
 
 export async function getServerSideProps(context) {
-  const a = "2018-07-24T12:00:13Z"
-  let search = 'notícia';
-  const response = await getEverything({
-      q: search,
-      publishedAt: a
-  });
+
+  const now = yyyy_mm_dd();
+  console.log(now)
+  
+  const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '');
+  const response = await axios.post(url, {
+    params:{
+      querys:{
+        q:"world",
+        from: now,
+        to: now,
+      }
+    }
+  })
+  const everythingArticles = response.data;
+
   return {
     props: {
-        response,
+        everything: everythingArticles,
     },
   }
 }
