@@ -37,8 +37,9 @@
 
 .grid {
   transition: 0.7s;
-  flex-direction: column-reverse;
-  margin: 25%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: 10%;
   margin-top: 0%;
 }
 .card img{
@@ -60,14 +61,20 @@
   transition: 0.5s;
 }
 
+
 .card {
   transition: 0.7s;
+
   margin-bottom: 15%;
+  margin-left: 10%;
+  margin-right: 10%;
+
   border-color: black;
   border-width: 100%;
   border-radius: 10%;
   border-right: 100%;
   border-spacing: 100%;
+
 }
 
 .card_text{
@@ -150,6 +157,7 @@
     font-size: 95%;
   }
   .grid {
+    grid-template-columns: auto auto;
     transition: 0.7s;
     margin: 15%;
     margin-top: 0%;
@@ -158,8 +166,14 @@
 
 @media only screen and (max-width: 650px) {
   .grid{
+    grid-template-columns: auto;
     transition: 0.7s;
     margin: 0%;
+  }
+  .card{
+    transition: 0.7s;
+    margin-left: 0%;
+    margin-right: 0%;
   }
   .card_text h3{
     transition: 0.7s;
@@ -190,4 +204,17 @@
     font-size: 0.5cm;
   }
 
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+}
+
+.header h1 p input{
+  font-size: 0.9em;
+  display: block;
+  margin: 0 0.5em;
 }

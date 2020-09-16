@@ -27,7 +27,7 @@ export default async (req, res) => {
     await runMiddleware(req, res, cors);
     try{
         const querys = filterUndefined(req.body.params.querys);
-        const response = await newsApi.v2.everything(querys)
+        const response = await newsApi.v2.everything(querys);
         const articles = response.articles;
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).send( articles );
