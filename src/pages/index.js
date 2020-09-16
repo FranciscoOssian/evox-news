@@ -8,22 +8,20 @@ import filterUndefined from '../utils/filterUndefined';
 import yyyy_mm_dd from '../utils/current_yyyy_mm_dd';
 
 export default function Home( { everything } ) {
-
   const now = yyyy_mm_dd();
 
   const [articles, setArticles] = useState(everything);
   const [textSearch, setTextSearch] = useState('');
 
-  const [everyThingPage, setEveryThingPage] = useState(1);
+  const [everythingPage, setEverythingPage] = useState(1);
 
-  async function reloadNewsEverything({target}, page){
-    setTextSearch( target.value );
-    if(target.value === '') return;
+  async function reloadNewsEverything( search, page ){
+    console.log(search, page)
     const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '')
     const response = await axios.post(url, {
       params: {
         querys:{
-          q:target.value,
+          q:search,
           page: page,
           to:now,
           from:now,
@@ -31,6 +29,22 @@ export default function Home( { everything } ) {
       }
     })
     setArticles( response.data );
+  }
+
+  async function reloadSearch({target}, page){
+    setTextSearch( target.value );
+    if(target.value === '') return;
+    await reloadNewsEverything(target.value, page)
+  }
+
+  function nextEverythingPage(){
+    setEverythingPage( everythingPage + 1 );
+    reloadNewsEverything( textSearch, everythingPage );
+  }
+
+  function backEverythingPage(){
+    setEverythingPage( everythingPage - 1 );
+    reloadNewsEverything( textSearch, everythingPage );
   }
 
   return (
@@ -42,35 +56,33 @@ export default function Home( { everything } ) {
       </Head>
 
       <main className={styles.main}>
-
-
-        <div className={styles.Evox}>
-          <h1 className={styles.title}>
-            Evox News
-          </h1>
-          <p className={styles.description}>
-            Your news search site
-          </p>
+        <div className="header">
+          <div className={styles.Evox}>
+            <h1 className={styles.title}>
+              Evox News
+            </h1>
+            <p className={styles.description}>
+              Your news search site
+            </p>
+          </div>
+          <div id={styles.search} >
+            <input
+              className={styles.text_search}
+              onChange={(e)=>reloadSearch(e, everythingPage)}
+              placeholder="search news"
+              value={textSearch}
+            />
+          </div>
         </div>
         
-        
-        <div id={styles.search} >
-          <input
-            className={styles.text_search}
-            onChange={(e)=>reloadNewsEverything(e, everyThingPage)}
-            placeholder="search news"
-            value={textSearch}
-          />
-        </div>
 
         <div className={styles.grid}>
           {
             articles.map( article => (
                 <Link href="/new"
-                  id={article.url}
                 >
                   <div className={styles.card}>
-                    <img src={article.urlToImage} alt="" width="500" ></img>
+                    <img src={article.urlToImage} alt="" ></img>
                     <div className={styles.card_text}>
                       <h3>{article.title === null ? '' : article.title.substring(0, 100) }</h3>
                       <p>{article.description === null ? '' : article.description.substring(0, 50)}</p>
@@ -81,6 +93,15 @@ export default function Home( { everything } ) {
             )
           }
         </div>
+        
+        
+        <button
+          onClick={()=>backEverythingPage()}
+        >back page</button>
+        <button
+          onClick={()=>nextEverythingPage()}
+        >next page</button>
+        
       </main>
       <footer className={styles.footer}>
       </footer>
@@ -91,7 +112,6 @@ export default function Home( { everything } ) {
 export async function getServerSideProps(context) {
 
   const now = yyyy_mm_dd();
-  console.log(now)
   
   const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '');
   const response = await axios.post(url, {
