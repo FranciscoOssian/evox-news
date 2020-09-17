@@ -7,6 +7,8 @@ import styles from '../styles/Home.module.css';
 import filterUndefined from '../utils/filterUndefined';
 import yyyy_mm_dd from '../utils/current_yyyy_mm_dd';
 
+import Post from '../components/Post';
+
 export default function Home( { everything } ) {
   const now = yyyy_mm_dd();
 
@@ -17,6 +19,7 @@ export default function Home( { everything } ) {
 
   async function reloadNewsEverything( search, page ){
     console.log(search, page)
+    console.log([])
     const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '')
     const response = await axios.post(url, {
       params: {
@@ -28,23 +31,32 @@ export default function Home( { everything } ) {
         }
       }
     })
+    console.log(response.data)
+    console.log(typeof response.data)
     setArticles( response.data );
   }
 
   async function reloadSearch({target}, page){
+    setEverythingPage(1);
     setTextSearch( target.value );
     if(target.value === '') return;
     await reloadNewsEverything(target.value, page)
   }
 
   function nextEverythingPage(){
+    let search;
+    if(textSearch === '') search = 'world';
+    else search = textSearch;
+    reloadNewsEverything( search, everythingPage + 1 );
     setEverythingPage( everythingPage + 1 );
-    reloadNewsEverything( textSearch, everythingPage );
   }
 
   function backEverythingPage(){
+    let search;
+    if(textSearch === '') search = 'world';
+    else search = textSearch;
+    reloadNewsEverything( search, everythingPage - 1 );
     setEverythingPage( everythingPage - 1 );
-    reloadNewsEverything( textSearch, everythingPage );
   }
 
   return (
@@ -59,7 +71,7 @@ export default function Home( { everything } ) {
         <div className="header">
           <div className={styles.Evox}>
             <h1 className={styles.title}>
-              Evox News
+              Evox <div id={styles.evox_title_news}> News </div>
             </h1>
             <p className={styles.description}>
               Your news search site
@@ -74,33 +86,27 @@ export default function Home( { everything } ) {
             />
           </div>
         </div>
-        
 
         <div className={styles.grid}>
-          {
-            articles.map( article => (
-                <Link href="/new"
-                >
-                  <div className={styles.card}>
-                    <img src={article.urlToImage} alt="" ></img>
-                    <div className={styles.card_text}>
-                      <h3>{article.title === null ? '' : article.title.substring(0, 100) }</h3>
-                      <p>{article.description === null ? '' : article.description.substring(0, 50)}</p>
-                    </div>
-                  </div>
-                </Link>
-              )
-            )
+          { articles === [] ? (
+            <div>
+              ops, the ekrjgbrgjbrgbjgjkrgnbkrjfvnrknd of news
+            </div>
+          ) : (articles.map( article => <Post article={article} /> ) )
           }
         </div>
         
         
         <button
+          className={styles.arrowButton}
+          id={styles.arrowButtonBack}
           onClick={()=>backEverythingPage()}
-        >back page</button>
+        > ← </button>
         <button
+          className={styles.arrowButton}
+          id={styles.arrowButtonNext}
           onClick={()=>nextEverythingPage()}
-        >next page</button>
+        > → </button>
         
       </main>
       <footer className={styles.footer}>

@@ -43,10 +43,12 @@
   margin-top: 0%;
 }
 .card img{
+  object-fit: cover;
   transition: 0.7s;
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
   width: 100%;
+  height: 10cm;
 }
 
 .card img:hover,
@@ -75,6 +77,8 @@
   border-right: 100%;
   border-spacing: 100%;
 
+  width: 300px;
+
 }
 
 .card_text{
@@ -83,11 +87,11 @@
 }
 .card_text h3{
   transition: 0.7s;
-  font-size: 0.9cm;
+  font-size: 150%;
 }
-.card p{
+.card_text p{
   transition: 0.7s;
-  font-size: 0.6cm;
+  font-size: 100%;
 }
 
 .card:hover,
@@ -138,16 +142,66 @@
   padding-top: 0cm;
 }
 
+#evox_title_news{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: black;
+  color: white;
+}
+
+.title{
+  justify-content: center;
+  display: inline;
+  display: inline-flex;
+}
+
 #search{
   transition: 0.7s;
   padding: 10px;
   text-align: center;
 }
 
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+}
 
+.header h1 p input{
+  font-size: 0.9em;
+  display: block;
+  margin: 0 0.5em;
+}
 
+.arrowButton {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.7cm;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
 
-@media only screen and (max-width: 1000px) {
+#arrowButtonNext{
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  right: 0;
+}
+
+#arrowButtonBack{
+  position: fixed;
+  z-index: 3;
+  bottom: 0;
+  right: 1;
+}
+
+@media only screen and (max-width: 1250px) {
   .card_text h3{
     transition: 0.7s;
     font-size: .5cm;
@@ -162,15 +216,19 @@
     margin: 15%;
     margin-top: 0%;
   }
+  .card img{
+    height: 5cm;
+  }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 900px) {
   .grid{
     grid-template-columns: auto;
     transition: 0.7s;
     margin: 0%;
   }
   .card{
+    width: 100%;
     transition: 0.7s;
     margin-left: 0%;
     margin-right: 0%;
@@ -182,6 +240,10 @@
   .card p{
     transition: 0.7s;
     font-size: 100%;
+  }
+  .card img{
+    width: 100%;
+    height: 7cm;
   }
 
   .card:hover,
@@ -204,17 +266,8 @@
     font-size: 0.5cm;
   }
 
-}
+  .arrowButton{
+    font-size: 0.5cm;
+  }
 
-.header {
-  position: fixed;
-  width: 100%;
-  z-index: 100;
-  position: fixed;
-}
-
-.header h1 p input{
-  font-size: 0.9em;
-  display: block;
-  margin: 0 0.5em;
 }
