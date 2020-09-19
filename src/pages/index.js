@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import axios from 'axios';
-import PageHead from '../components/PageHead';
+
 import styles from '../styles/Home.module.css';
-import filterUndefined from '../utils/filterUndefined';
+
 import yyyy_mm_dd from '../utils/current_yyyy_mm_dd';
 
 import Post from '../components/Post';
@@ -18,8 +17,6 @@ export default function Home( { everything } ) {
   const [everythingPage, setEverythingPage] = useState(1);
 
   async function reloadNewsEverything( search, page ){
-    console.log(search, page)
-    console.log([])
     const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '')
     const response = await axios.post(url, {
       params: {
@@ -31,8 +28,6 @@ export default function Home( { everything } ) {
         }
       }
     })
-    console.log(response.data)
-    console.log(typeof response.data)
     setArticles( response.data );
   }
 
@@ -126,6 +121,7 @@ export async function getServerSideProps(context) {
   const now = yyyy_mm_dd();
   
   const url = (process.env.EVOX_NEWS_URL + '/api/everything').replace('undefined', '');
+
   const response = await axios.post(url, {
     params:{
       querys:{

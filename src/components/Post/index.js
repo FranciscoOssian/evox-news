@@ -6,7 +6,7 @@ import styles from '../../styles/Home.module.css';
 const Post = ({article}) => {
     return (
         <div>
-            <Link href="/new"
+            <Link href={article.url}
             >
                 <div className={styles.card}>
                     <img src={article.urlToImage} alt="" ></img>
