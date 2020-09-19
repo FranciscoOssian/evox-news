@@ -92,7 +92,13 @@ export default function Home( { everything } ) {
             <div>
               ops, the ekrjgbrgjbrgbjgjkrgnbkrjfvnrknd of news
             </div>
-          ) : (articles.map( article => <Post article={article} /> ) )
+          ) : (articles.map( article => {
+            if(article.urlToImage === null) article.urlToImage = 'https://i.imgur.com/3CxiyQO.png';
+            console.log(article);
+            return (
+              <Post article={article} />
+            );
+          } ) )
           }
         </div>
         
