@@ -101,18 +101,6 @@
   transition: 0.7s;
 }
 
-.card h3 {
-
-}
-
-.card p{
-
-}
-
-.logo {
-
-}
-
 
 .Evox{
   margin: auto;
@@ -214,6 +202,7 @@
     grid-template-columns: auto auto;
     transition: 0.7s;
     margin: 15%;
+    margin-right: 22.5%;
     margin-top: 0%;
   }
   .card img{
