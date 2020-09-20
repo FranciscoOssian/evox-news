@@ -84,12 +84,13 @@ export default function Home( { everything } ) {
 
         <div className={styles.grid}>
           { articles === [] ? (
+            //dont work
             <div>
-              ops, the ekrjgbrgjbrgbjgjkrgnbkrjfvnrknd of news
+              ops, the end of news
             </div>
           ) : (articles.map( article => {
-            if(article.urlToImage === null) article.urlToImage = process.env.SAMPLE_IMG;
-            console.log(article);
+            if(article.urlToImage === null || article.urlToImage === undefined || article.urlToImage === '') article.urlToImage = 'https://i.imgur.com/3CxiyQO.png';
+            console.log(process.env.SAMPLE_IMG);
             return (
               <Post article={article} />
             );
