@@ -12,8 +12,6 @@ See the result online in this link [https://evox-news.vercel.app/](https://evox-
     <img src ="https://i.imgur.com/C1hvA9m.gif" height="380" >
 </div>
 
-## Configuring
-
 ## 🚀 Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
